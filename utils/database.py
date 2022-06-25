@@ -7,13 +7,13 @@ client = MongoClient(getenv('MONGO_URI'))
 db = client.origreen
 
 def get_profiles():
-    profiles = db.profiles.find()
+    profiles = list(db.profiles.find())
     for profile in profiles:
         del profile['_id']
     return profiles
 
 def get_food():
-    food = db.food.find()
+    food = list(db.food.find())
     for f in food:
         del f['_id']
     return food
