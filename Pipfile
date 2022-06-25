@@ -9,9 +9,12 @@ python-dotenv = "*"
 pymongo = {extras = ["srv"], version = "*"}
 
 [dev-packages]
+uvicorn = {extras = ["standard"], version = "*"}
+gunicorn = "*"
 
 [requires]
 python_version = "3.9"
 
 [scripts]
-start = "python main.py"
+dev = "uvicorn main:app --workers 4 --port 3000 --reload"
+start = "gunicorn --bind 0.0.0.0:$PORT -w 4 -k uvicorn.workers.UvicornWorker main:app"
