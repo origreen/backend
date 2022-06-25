@@ -21,6 +21,10 @@ app.add_middleware(
 def profiles():
     return database.get_profiles()
 
+@app.get('/profiles/active')
+def profiles():
+    return database.get_active_profile()
+
 @app.get('/food')
 def food():
     return database.get_food()

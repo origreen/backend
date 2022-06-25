@@ -18,13 +18,18 @@ def get_food():
         del f['_id']
     return food
 
+def get_active_profile():
+    profile = db.profiles.find_one({ 'active': True })
+    del profile['_id']
+    return profile
+
 def get_food_information(food_id: str):
     food = db.food.find_one({ 'id': food_id })
     del food['_id']
     return food
 
 def get_score(food_id: str): 
-    profile = db.profiles.find_one({ 'active': True })
+    profile = get_active_profile()
     food_information = get_food_information(food_id)
     return compute_scores(food_information, profile)
 
