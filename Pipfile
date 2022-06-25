@@ -4,11 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
 python-dotenv = "*"
 pymongo = {extras = ["srv"], version = "*"}
 uvicorn = {extras = ["standard"], version = "*"}
 gunicorn = "*"
+fastapi = "*"
 
 [requires]
 python_version = "3.9"
