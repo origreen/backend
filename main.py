@@ -27,9 +27,6 @@ def food():
 
 @app.get('/food/{id}')
 def foodId(id: str):
-    print('DIOCANEEEEEEEEEEEEEEEEEEEEEEE')
-    print(database.get_food_information(id))
-    print('DIOCANEEEEEEEEEEEEEEEEEEEEEEE')
     return dict(database.get_food_information(id))
 
 @app.get('/food/{id}/score')

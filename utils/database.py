@@ -3,7 +3,6 @@ from pymongo import MongoClient
 from os import getenv
 
 from .score import compute_scores
-print(getenv('MONGO_URI'))
 client = MongoClient(getenv('MONGO_URI'))
 db = client.origreen
 
