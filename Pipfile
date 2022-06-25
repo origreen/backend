@@ -7,8 +7,6 @@ name = "pypi"
 flask = "*"
 python-dotenv = "*"
 pymongo = {extras = ["srv"], version = "*"}
-
-[dev-packages]
 uvicorn = {extras = ["standard"], version = "*"}
 gunicorn = "*"
 
