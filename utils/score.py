@@ -46,14 +46,14 @@ def compute_scores(item, weights):
     total_score = weights['total']*env_score + (1-weights['total'])*nutri_score
     return {
         'personalized': total_score,
-        'environmental': {
+        'nutritional': {
             'overall': env_score,
             'vitamin': vitamin_score,
             'fiber': fiber_score,
             'caloric': caloric_score,
             'sodium': sodium_score,
         },
-        'nutritional': {
+        'environmental': {
             'overall': nutri_score,
             'water': water_score,
             'energy': energy_score,

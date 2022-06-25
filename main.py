@@ -17,6 +17,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get('/profiles')
+def score():
+    return database.get_profiles()
+
+@app.get('/{id}')
+def score(id: str):
+    return database.get_food_information(id)
 
 @app.get('/{id}/score')
 def score(id: str):
