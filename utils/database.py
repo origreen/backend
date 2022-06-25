@@ -23,6 +23,10 @@ def get_active_profile():
     del profile['_id']
     return profile
 
+def set_active_profile(name: str):
+    db.profiles.update_many({ 'active': True }, { '$set': { 'active': False } })
+    db.profiles.update_one({ 'name': name }, { '$set': { 'active': True } })
+
 def get_food_information(food_id: str):
     food = db.food.find_one({ 'id': food_id })
     del food['_id']

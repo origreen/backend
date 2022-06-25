@@ -4,6 +4,10 @@ load_dotenv()
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+class SetActiveBody(BaseModel):
+    name: str
 
 from utils import database
 
@@ -24,6 +28,10 @@ def profiles():
 @app.get('/profiles/active')
 def profiles():
     return database.get_active_profile()
+
+@app.post('/profiles/active')
+def profiles(body: SetActiveBody):
+    return database.set_active_profile(body.name)
 
 @app.get('/food')
 def food():
