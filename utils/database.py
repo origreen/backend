@@ -8,10 +8,15 @@ client = MongoClient(getenv('MONGO_URI'))
 db = client.origreen
 
 def get_profiles() -> str:
-    return db.profiles.find()
+    profiles = db.profiles.find()
+    for profile in profiles:
+        del profile['_id']
+    return profiles
 
 def get_food_information(food_id: str) -> str:
-    return db.food.find_one({ 'id': food_id })
+    food = db.food.find_one({ 'id': food_id })
+    del food['_id']
+    return food
 
 def get_score(food_id: str) -> str: 
     profile = db.profiles.find_one({ 'active': True })

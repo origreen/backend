@@ -19,12 +19,16 @@ app.add_middleware(
 
 @app.get('/profiles')
 def score():
-    return database.get_profiles()
+   
+    return dict(database.get_profiles())
 
-@app.get('/{id}')
+@app.get('/food/{id}')
 def score(id: str):
-    return database.get_food_information(id)
+    print('DIOCANEEEEEEEEEEEEEEEEEEEEEEE')
+    print(database.get_food_information(id))
+    print('DIOCANEEEEEEEEEEEEEEEEEEEEEEE')
+    return dict(database.get_food_information(id))
 
-@app.get('/{id}/score')
+@app.get('/food/{id}/score')
 def score(id: str):
     return database.get_score(id)
