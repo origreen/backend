@@ -28,20 +28,31 @@ def compute_scores(item, weights):
     fiber_score = (item['nutritionalInformation']['fiber'] - baselines['nutritional']['fiber'][0]) / (baselines['nutritional']['fiber'][1] - baselines['nutritional']['fiber'][0])
     caloric_score = 1 - (item['nutritionalInformation']['calories'] - baselines['nutritional']['calories'][0]) / (baselines['nutritional']['calories'][1] - baselines['nutritional']['calories'][0])
     sodium_score = 1 - (item['nutritionalInformation']['sodium'] - baselines['nutritional']['sodium'][0]) / (baselines['nutritional']['sodium'][1] - baselines['nutritional']['sodium'][0])
-
-    nutritional_score = weights['parameters']['nutritional']['parameters']['vitamins']['weight']*vitamin_score \
-                + weights['parameters']['nutritional']['parameters']['fiber']['weight']*fiber_score \
-                + weights['parameters']['nutritional']['parameters']['calories']['weight']*caloric_score \
-                + weights['parameters']['nutritional']['parameters']['sodium']['weight']*sodium_score
+    
+    nutri_sum = weights['parameters']['nutritional']['parameters']['vitamin']['weight'] + weights['parameters']['nutritional']['parameters']['fiber']['weight'] + weights['parameters']['nutritional']['parameters']['caloric']['weight'] + weights['parameters']['nutritional']['parameters']['sodium']['weight']
+    vitamin_weight = weights['parameters']['nutritional']['parameters']['vitamin']['weight'] / nutri_sum
+    fiber_weight = weights['parameters']['nutritional']['parameters']['fiber']['weight'] / nutri_sum
+    caloric_weight = weights['parameters']['nutritional']['parameters']['caloric']['weight'] / nutri_sum
+    sodium_weight = weights['parameters']['nutritional']['parameters']['sodium']['weight'] / nutri_sum
+    
+    nutri_score = vitamin_weight*vitamin_score \
+            + fiber_weight*fiber_score \
+            + caloric_weight*caloric_score \
+            + sodium_weight*sodium_score
 
     # Environmental scores
     water_score = 1 - (item['growingInformation']['waterUsage'] - baselines['environmental']['water'][0]) / (baselines['environmental']['water'][1] - baselines['environmental']['water'][0])
     energy_score = 1 - (item['growingInformation']['energyUsage'] - baselines['environmental']['energy'][0]) / (baselines['environmental']['energy'][1] - baselines['environmental']['energy'][0])
     co2_score = 1 - (item['growingInformation']['co2Emissions'] - baselines['environmental']['co2'][0]) / (baselines['environmental']['co2'][1] - baselines['environmental']['co2'][0])
+    envir_sum = weights['parameters']['environmental']['parameters']['water']['weight'] + weights['parameters']['environmental']['parameters']['energy']['weight'] + weights['parameters']['environmental']['parameters']['co2']['weight']
+    
+    water_weight = weights['parameters']['environmental']['parameters']['water']['weight'] / envir_sum
+    energy_weight = weights['parameters']['environmental']['parameters']['energy']['weight'] / envir_sum
+    co2_weight = weights['parameters']['environmental']['parameters']['co2']['weight'] / envir_sum
 
-    environmental_score = weights['parameters']['environmental']['parameters']['water']['weight']*water_score \
-              + weights['parameters']['environmental']['parameters']['energy']['weight']*energy_score \
-              + weights['parameters']['environmental']['parameters']['co2']['weight']*co2_score
+    env_score = water_weight*water_score \
+              + energy_weight*energy_score \
+              + co2_weight*co2_score
 
     total_score = weights['parameters']['environmental']['weight']*environmental_score + weights['parameters']['nutritional']['weight']*nutritional_score
     return {
