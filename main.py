@@ -6,10 +6,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+from utils import database
+
 class SetActiveBody(BaseModel):
     name: str
-
-from utils import database
+class UpdateCustomProfileBody(BaseModel):
+    name: str
+    value: float
 
 
 app = FastAPI()
@@ -32,6 +35,10 @@ def profiles():
 @app.post('/profiles/active')
 def profiles(body: SetActiveBody):
     return database.set_active_profile(body.name)
+
+@app.post('/profiles/custom')
+def profiles(body: UpdateCustomProfileBody):
+    return database.set_update_custom_profile(body.name, body.value)
 
 @app.get('/food')
 def food():
