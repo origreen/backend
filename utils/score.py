@@ -35,7 +35,7 @@ def compute_scores(item, weights):
     caloric_weight = weights['parameters']['nutritional']['parameters']['caloric']['weight'] / nutri_sum
     sodium_weight = weights['parameters']['nutritional']['parameters']['sodium']['weight'] / nutri_sum
     
-    nutri_score = vitamin_weight*vitamin_score \
+    nutritional_score = vitamin_weight*vitamin_score \
             + fiber_weight*fiber_score \
             + caloric_weight*caloric_score \
             + sodium_weight*sodium_score
@@ -50,11 +50,14 @@ def compute_scores(item, weights):
     energy_weight = weights['parameters']['environmental']['parameters']['energy']['weight'] / envir_sum
     co2_weight = weights['parameters']['environmental']['parameters']['co2']['weight'] / envir_sum
 
-    env_score = water_weight*water_score \
+    environmental_score = water_weight*water_score \
               + energy_weight*energy_score \
               + co2_weight*co2_score
 
-    total_score = weights['parameters']['environmental']['weight']*environmental_score + weights['parameters']['nutritional']['weight']*nutritional_score
+    total_sum = weights['parameters']['environmental']['weight'] + weights['parameters']['nutritional']['weight']
+    environmental_weight = weights['parameters']['environmental']['weight'] / total_sum
+    nutritional_weight = weights['parameters']['nutritional']['weight'] / total_sum
+    total_score = environmental_weight*environmental_score + nutritional_weight*nutritional_score
     return {
         'personalized': total_score,
         'nutritional': {
