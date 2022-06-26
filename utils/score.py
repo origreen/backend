@@ -29,10 +29,10 @@ def compute_scores(item, weights):
     caloric_score = 1 - (item['nutritionalInformation']['calories'] - baselines['nutritional']['calories'][0]) / (baselines['nutritional']['calories'][1] - baselines['nutritional']['calories'][0])
     sodium_score = 1 - (item['nutritionalInformation']['sodium'] - baselines['nutritional']['sodium'][0]) / (baselines['nutritional']['sodium'][1] - baselines['nutritional']['sodium'][0])
     
-    nutri_sum = weights['parameters']['nutritional']['parameters']['vitamins']['weight'] + weights['parameters']['nutritional']['parameters']['fiber']['weight'] + weights['parameters']['nutritional']['parameters']['caloric']['weight'] + weights['parameters']['nutritional']['parameters']['sodium']['weight']
+    nutri_sum = weights['parameters']['nutritional']['parameters']['vitamins']['weight'] + weights['parameters']['nutritional']['parameters']['fiber']['weight'] + weights['parameters']['nutritional']['parameters']['calories']['weight'] + weights['parameters']['nutritional']['parameters']['sodium']['weight']
     vitamin_weight = weights['parameters']['nutritional']['parameters']['vitamins']['weight'] / nutri_sum
     fiber_weight = weights['parameters']['nutritional']['parameters']['fiber']['weight'] / nutri_sum
-    caloric_weight = weights['parameters']['nutritional']['parameters']['caloric']['weight'] / nutri_sum
+    caloric_weight = weights['parameters']['nutritional']['parameters']['calories']['weight'] / nutri_sum
     sodium_weight = weights['parameters']['nutritional']['parameters']['sodium']['weight'] / nutri_sum
     
     nutritional_score = vitamin_weight*vitamin_score \
